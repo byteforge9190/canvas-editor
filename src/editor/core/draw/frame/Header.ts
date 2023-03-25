@@ -1,4 +1,4 @@
-import { maxHeightRadioMapping } from '../../../dataset/constant/Header'
+import { maxHeightRadioMapping } from '../../../dataset/constant/Common'
 import { EditorZone } from '../../../dataset/enum/Editor'
 import { DeepRequired } from '../../../interface/Common'
 import { IEditorOption } from '../../../interface/Editor'
