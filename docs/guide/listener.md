@@ -1,4 +1,6 @@
-# 事件监听
+# 事件监听(listener)
+
+> listener只能响应一个方法，推荐使用eventBus进行事件监听
 
 ## 使用方式
 
