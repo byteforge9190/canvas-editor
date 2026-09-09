@@ -57,6 +57,46 @@ describe('控件命令', () => {
     }).not.toThrow()
   })
 
+  it('executeSetControlValue isOverwrite 为 false 时不覆盖已有值', () => {
+    ctx = createTestEditor({
+      data: [
+        {
+          type: ElementType.CONTROL,
+          value: '',
+          control: {
+            conceptId: 'overwrite-filled',
+            type: ControlType.TEXT,
+            value: [{ value: '旧值' }]
+          }
+        },
+        {
+          type: ElementType.CONTROL,
+          value: '',
+          control: {
+            conceptId: 'overwrite-empty',
+            type: ControlType.TEXT,
+            value: null
+          }
+        }
+      ]
+    })
+
+    ctx.editor.command.executeSetControlValueList([
+      { conceptId: 'overwrite-filled', value: '新值', isOverwrite: false },
+      { conceptId: 'overwrite-empty', value: '默认值', isOverwrite: false }
+    ])
+
+    const [filled] = ctx.editor.command.getControlValue({
+      conceptId: 'overwrite-filled'
+    })!
+    const [empty] = ctx.editor.command.getControlValue({
+      conceptId: 'overwrite-empty'
+    })!
+
+    expect(filled.value).toBe('旧值')
+    expect(empty.value).toBe('默认值')
+  })
+
   it('executeSetControlHighlight 空操作不抛错', () => {
     ctx = createTestEditor()
     expect(() => {
